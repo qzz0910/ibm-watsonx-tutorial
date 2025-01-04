@@ -4,7 +4,7 @@ sys.path.append('<workspace>\\Django-Prj\\WatsonxPrj\\WatsonxPrj')
 ''' ----------------------------------------------------'''
 import requests
     
-from WatsonxPrj.apis.embedder import huggingface_embeddins
+from WatsonxPrj.apis.embedder import huggingface_embeddings
 from WatsonxPrj.apis.prompt import WATSONX_PROMPT
 from pymongo import MongoClient
 
@@ -13,13 +13,13 @@ load_dotenv(dotenv_path="../.env")
 
 
 def get_prompt_embeddings(prompt_q:str)->list:
-    return huggingface_embeddins(prompt_q)
+    return huggingface_embeddings(prompt_q)
     
 def retrive_embedddings_map_list(embeddings, top_count:int):
     embedddings_map_list=[]
     connection_url=  os.environ.get("MONGODB_CONN_URL") 
     collection_name='gai_embeddings'
-    clnt = MongoClient(connection_url, ssl=True,ssl_cert_reqs='CERT_NONE')
+    clnt = MongoClient(connection_url, ssl=True)
     database_name="mytest_DB"
     db_obj = clnt.get_database(database_name) 
     collec=db_obj[collection_name]
